@@ -43,9 +43,14 @@ Está concebido para funcionar como una librería pura en Node.js, integrable en
   "id": 1,
   "concepto": "Cena de bienvenida",
   "importe": 45.50,
-  "pagadoPor": "Luis"
+  "pagadoPor": "Luis",
+  "entre": ["Ana", "Luis", "Marta"]
 }
 ```
+
+- `entre` es un campo **opcional**. Si no se indica, el gasto se reparte entre **todos** los participantes del grupo.
+- Si se indica, el gasto se reparte solo entre las personas listadas en este array.
+- El pagador (`pagadoPor`) **no** tiene por qué estar en `entre` (puede invitar a otros).
 
 ---
 
@@ -72,12 +77,19 @@ Añade un gasto al registro del grupo de forma atómica.
 
 - **Parámetros:**
   - `grupo` (`Object`): Instancia válida de un objeto `Grupo`.
-  - `gasto` (`Object`): Objeto con las propiedades `{ concepto, importe, pagadoPor }`:
+  - `gasto` (`Object`): Objeto con las propiedades `{ concepto, importe, pagadoPor, entre }`:
     - `concepto` (`string`): Texto explicativo no vacío (tras `.trim()`).
     - `importe` (`number`): Número finito **estrictamente mayor que 0** (`importe > 0`).
     - `pagadoPor` (`string`): Debe coincidir exactamente con uno de los miembros listados en `grupo.participantes`.
+    - `entre` (`Array<string>`, **opcional**): Lista de participantes entre los que se reparte este gasto.
+      - Si no se indica, el gasto se reparte entre **todos** los participantes del grupo.
+      - Debe contener al menos un nombre.
+      - Todos los nombres deben estar en `grupo.participantes`.
+      - Sin duplicados.
+      - El pagador **no** tiene por qué estar en `entre`.
 - **Comportamiento:**
   - Asigna al nuevo gasto un `id` correlativo incremental comenzando en **1** (`id = grupo.gastos.length + 1`).
+  - Si `entre` se indica, el gasto guardado incluye `entre` con esa lista.
   - Añade el objeto al array `grupo.gastos`.
 - **Devuelve:** El objeto `grupo` actualizado.
 - **Garantía de Inmutabilidad en Fallo:** Si alguna validación falla, debe lanzar un `Error` y **no realizar ninguna modificación** sobre el objeto `grupo` original.
@@ -102,8 +114,11 @@ Calcula el saldo individual neto de cada participante.
 
 - **Parámetros:** `grupo` (`Object`).
 - **Fórmulas de Cálculo:**
-  $$\text{Cuota Individual} = \frac{\sum \text{Gastos del Grupo}}{\text{Número de Participantes}}$$
-  $$\text{Saldo} = \text{Total Pagado por el Participante} - \text{Cuota Individual}$$
+  - Para cada gasto, la "parte justa" de cada persona que participa en él es:
+    $$\text{parte} = \frac{\text{importe del gasto}}{\text{número de personas en } entre}$$
+  - Si el gasto no tiene `entre`, se reparte entre **todos** los participantes del grupo.
+  - La **cuota justa** de cada persona es la suma de sus partes en cada gasto en el que participa.
+  - $$\text{Saldo} = \text{Total Pagado por el Participante} - \text{Cuota Justa}$$
 - **Interpretación del resultado:**
   - Saldo positivo (`> 0`): A la persona le deben dinero.
   - Saldo negativo (`< 0`): La persona debe dinero.
@@ -183,4 +198,22 @@ const grupo = crearGrupo("Escapada", ["Ana", "Luis"]);
 balances(grupo);     // Devuelve: { Ana: 0, Luis: 0 }
 liquidacion(grupo);  // Devuelve: []
 resumen(grupo);      // Devuelve: { total: 0, cuota: 0, numGastos: 0, participantes: 2 }
+```
+
+### Ejemplo 4: Gasto compartido solo entre algunos (`entre`)
+```javascript
+const grupo = crearGrupo("Casa Rural", ["Ana", "Luis", "Marta"]);
+agregarGasto(grupo, { concepto: "Taxi", importe: 20, pagadoPor: "Ana", entre: ["Ana", "Luis"] });
+agregarGasto(grupo, { concepto: "Casa", importe: 30, pagadoPor: "Marta" });
+
+// Taxi: 20/2 = 10 para Ana, 10 para Luis
+// Casa: 30/3 = 10 para cada uno (sin 'entre' → todos)
+// Justo: Ana 20, Luis 10, Marta 10
+// Pagado: Ana 20, Luis 0, Marta 30
+
+balances(grupo);
+// Devuelve: { Ana: 0, Luis: -20, Marta: 20 }
+
+liquidacion(grupo);
+// Devuelve: [ { de: "Luis", a: "Marta", importe: 20 } ]
 ```

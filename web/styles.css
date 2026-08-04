@@ -34,7 +34,6 @@ body {
   line-height: 1.5;
 }
 
-/* ---------- Barra superior ---------- */
 .topbar {
   position: sticky;
   top: 0;
@@ -76,7 +75,6 @@ body {
   box-shadow: var(--shadow);
 }
 
-/* ---------- Botones ---------- */
 .btn {
   border: 0;
   cursor: pointer;
@@ -114,14 +112,12 @@ body {
 
 .btn.full { width: 100%; margin-top: 0.25rem; }
 
-/* ---------- Layout ---------- */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 2rem 1.5rem 3rem;
 }
 
-/* ---------- Hero / crear grupo ---------- */
 .hero {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
@@ -160,7 +156,6 @@ body {
   font-size: 1.25rem;
 }
 
-/* ---------- Formularios ---------- */
 .form { display: flex; flex-direction: column; gap: 1rem; }
 
 .field { display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
@@ -205,7 +200,6 @@ body {
   padding: 0.5rem 0.7rem;
 }
 
-/* ---------- Chips (participantes) ---------- */
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -244,8 +238,40 @@ body {
 
 .chip button:hover { background: rgba(79, 70, 229, 0.15); }
 
-/* ---------- Cabecera de la app ---------- */
-#panel-app { display: grid; gap: 1.5rem; }
+.entre-checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.3rem;
+}
+
+.entre-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #f8fafc;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.entre-check input {
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.entre-check.checked {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  font-weight: 600;
+}
 
 .app-head {
   display: flex;
@@ -266,7 +292,6 @@ body {
   flex: none;
 }
 
-/* ---------- Tarjetas de estadísticas ---------- */
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -295,7 +320,6 @@ body {
   margin-top: 0.2rem;
 }
 
-/* ---------- Tarjetas generales ---------- */
 .card {
   background: var(--card);
   border-radius: var(--radius);
@@ -311,7 +335,6 @@ body {
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
 
-/* ---------- Lista de gastos ---------- */
 .lista-gastos { display: grid; gap: 0.55rem; }
 
 .gasto-item {
@@ -340,10 +363,10 @@ body {
 
 .gasto-info .gasto-concepto { font-weight: 600; font-size: 0.95rem; }
 .gasto-info .gasto-quien { font-size: 0.8rem; color: var(--ink-faint); }
+.gasto-info .gasto-entre { font-size: 0.75rem; color: var(--accent); margin-top: 0.15rem; }
 
 .gasto-importe { font-weight: 700; color: var(--ok); }
 
-/* ---------- Filas (totales / balances / liquidación) ---------- */
 .rows { display: grid; gap: 0.6rem; }
 
 .row {
@@ -398,7 +421,6 @@ body {
 
 .transferencia .importe { font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
 
-/* ---------- Estados vacíos ---------- */
 .vacio {
   text-align: center;
   color: var(--ink-faint);
@@ -408,7 +430,6 @@ body {
   border-radius: var(--radius-sm);
 }
 
-/* ---------- Footer ---------- */
 .footer {
   text-align: center;
   color: var(--ink-faint);
@@ -416,10 +437,8 @@ body {
   padding: 1rem 1.5rem 2.2rem;
 }
 
-/* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; padding: 2rem; }
-  .hero-text { text-align: center; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: 1fr; }
 }

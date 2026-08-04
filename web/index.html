@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reparto de Gastos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#">
+        <span class="brand-badge">€</span>
+        <span class="brand-text">Reparto de Gastos</span>
+      </a>
+      <button id="btn-nuevo" class="btn ghost" hidden type="button">Nuevo grupo</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section id="panel-crear" class="hero">
+      <div class="hero-text">
+        <h1>Divide los gastos de tu grupo en segundos</h1>
+        <p>Registra quién pagó qué y obtén al instante los saldos y el plan de quién le debe a quién.</p>
+        <button id="btn-demo" class="btn light" type="button">Probar con un ejemplo</button>
+      </div>
+
+      <form id="form-crear" class="form-card" novalidate>
+        <h2>Crear grupo</h2>
+
+        <div class="field">
+          <label for="nombre-grupo">Nombre del grupo</label>
+          <input id="nombre-grupo" type="text" placeholder="Viaje a la playa" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="input-participante">Participantes</label>
+          <div class="tag-input">
+            <input id="input-participante" type="text" placeholder="Escribe un nombre y pulsa Enter" autocomplete="off">
+          </div>
+          <div id="chips" class="chips"></div>
+          <p id="err-participantes" class="field-error" hidden></p>
+        </div>
+
+        <button type="submit" class="btn primary full">Crear grupo</button>
+      </form>
+    </section>
+
+    <section id="panel-app" hidden>
+
+      <div class="app-head">
+        <span class="app-dot"></span>
+        <div>
+          <h2 id="titulo-grupo"></h2>
+          <p id="subtitulo-grupo"></p>
+        </div>
+      </div>
+
+      <div class="stats" id="stats"></div>
+
+      <div class="grid-2">
+        <section class="card">
+          <h3 class="card-title">Añadir gasto</h3>
+          <form id="form-gasto" class="form" novalidate>
+            <div class="field">
+              <label for="gasto-concepto">Concepto</label>
+              <input id="gasto-concepto" type="text" placeholder="Cena, alquiler, gasolina..." autocomplete="off">
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="gasto-importe">Importe (€)</label>
+                <input id="gasto-importe" type="number" min="0.01" step="0.01" placeholder="0.00">
+              </div>
+              <div class="field">
+                <label for="gasto-pagado">Pagado por</label>
+                <select id="gasto-pagado"></select>
+              </div>
+            </div>
+            <div class="field">
+              <label>Compartir entre</label>
+              <div id="entre-checks" class="entre-checks"></div>
+              <p id="err-entre" class="field-error" hidden></p>
+            </div>
+            <p id="err-gasto" class="field-error" hidden></p>
+            <button type="submit" class="btn primary full">Añadir gasto</button>
+          </form>
+        </section>
+
+        <section class="card">
+          <h3 class="card-title">Gastos registrados</h3>
+          <div id="lista-gastos" class="lista-gastos"></div>
+        </section>
+      </div>
+
+      <div class="grid-3">
+        <section class="card">
+          <h3 class="card-title">Totales por persona</h3>
+          <div id="totales" class="rows"></div>
+        </section>
+        <section class="card">
+          <h3 class="card-title">Balances</h3>
+          <div id="balances" class="rows"></div>
+        </section>
+        <section class="card">
+          <h3 class="card-title">Liquidación</h3>
+          <div id="liquidacion" class="rows"></div>
+        </section>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    Módulo CommonJS de gastos &middot; Sin dependencias externas &middot; Interfaz con HTML y CSS propio
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

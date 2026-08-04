@@ -419,7 +419,7 @@
   }
 
   function quitarbotonCancelar() {
-    const cont = $("#gasto-cancelar-cont");
+    const cont = $(".gasto-cancelar-cont");
     if (cont) {
       cont.remove();
     }

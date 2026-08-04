@@ -277,6 +277,7 @@
     const icono = $("#theme-icon");
     if (icono) {
       icono.textContent = tema === "dark" ? "☀️" : "🌙";
+      icono.classList.toggle("pulse", tema === "dark");
     }
   }
 

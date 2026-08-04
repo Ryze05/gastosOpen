@@ -161,7 +161,7 @@ body {
   font-size: 1.3rem;
 }
 
-.form { display: flex; flex-direction: column; gap: 1.1rem; }
+.form { display: flex; flex-direction: column; gap: 0.8rem; }
 
 .field { display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
 
@@ -419,7 +419,7 @@ body {
 }
 
 .gasto-cancelar-cont {
-  margin-top: 0.5rem;
+  margin-top: 0.2rem;
   text-align: center;
 }
 

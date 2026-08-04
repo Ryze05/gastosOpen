@@ -489,8 +489,8 @@
       item.appendChild(id);
       item.appendChild(info);
       item.appendChild(importe);
-      item.appendChild(btnEliminar);
       item.appendChild(btnEditar);
+      item.appendChild(btnEliminar);
       cont.appendChild(item);
     }
   }

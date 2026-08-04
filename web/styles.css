@@ -225,7 +225,7 @@ body {
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   padding: 0.7rem 0.85rem;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
   width: 100%;
 }
 
@@ -266,7 +266,7 @@ body {
   padding: 0.32rem 0.35rem 0.32rem 0.85rem;
   font-size: 0.88rem;
   font-weight: 600;
-  animation: pop 0.18s ease;
+  animation: pop 0.4s ease;
 }
 
 @keyframes pop {
@@ -545,7 +545,7 @@ body {
 
 .theme-icon {
   font-size: 1.1rem;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
 }
 
 .footer-inner {
@@ -574,7 +574,7 @@ body {
   color: var(--accent);
   text-decoration: none;
   font-weight: 600;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  transition: opacity 0.3s ease, color 0.3s ease;
 }
 
 .footer-link:hover {
@@ -629,7 +629,7 @@ html { scroll-behavior: smooth; }
 
 /* Animación entrada solo en carga inicial del hero */
 .hero {
-  animation: fadeInUp 0.5s ease;
+  animation: fadeInUp 0.7s ease;
 }
 
 @keyframes fadeInUp {

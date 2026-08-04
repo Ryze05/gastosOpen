@@ -2,14 +2,13 @@
 
 ## Estado del repositorio
 
-- El repositorio solo contiene `SPEC.md` (especificación técnica en español). **No existe código todavía.**
-- Único entregable requerido: `lib/gastos.js`, un módulo CommonJS (`module.exports = { ... }`).
+- Código implementado: `lib/gastos.js` (módulo CommonJS), `web/` (interfaz visual), `tests/` (suite de pruebas).
 - **0 dependencias externas** (solo Node.js/JavaScript estándar). No añadir librerías.
 - `SPEC.md` es la fuente de verdad; la sección 5 contiene los casos de aceptación oficiales que sirven de oráculo de pruebas.
 
 ## API pública a implementar (según SPEC.md §4)
 
-`crearGrupo(nombre, participantes)`, `agregarGasto(grupo, gasto)`, `totalPorPersona(grupo)`, `balances(grupo)`, `liquidacion(grupo)`, `resumen(grupo)`.
+`crearGrupo(nombre, participantes)`, `agregarGasto(grupo, gasto)`, `eliminarGasto(grupo, id)`, `modificarGasto(grupo, id, gasto)`, `totalPorPersona(grupo)`, `balances(grupo)`, `liquidacion(grupo)`, `resumen(grupo)`.
 
 ## Gotchas que se suelen pasar por alto
 
@@ -30,5 +29,6 @@ No hay framework de tests ni `package.json` (solo Node estándar). Suite de prue
 - `tests/validaciones.test.js`: validaciones de `crearGrupo`/`agregarGasto`, atomicidad, ids, sensibilidad a mayúsculas.
 - `tests/calculos.test.js`: `totalPorPersona`, `balances`, `resumen` (redondeo, ceros).
 - `tests/liquidacion.test.js`: algoritmo greedy (empates, saldos 0, umbral `M <= 0.01`, ordenación).
+- `tests/entre.test.js`: campo `entre`, eliminar, modificar.
 
 Comando para ejecutar toda la suite: `node tests/run-all.js`. También pueden ejecutarse archivos sueltos con `node tests/<archivo>.test.js`. Salida 0 y exit code 0 = todo correcto.

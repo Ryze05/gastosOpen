@@ -25,13 +25,14 @@
 body {
   margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
   color: var(--ink);
   background:
     radial-gradient(900px 420px at 85% -10%, rgba(124, 58, 237, 0.12), transparent 60%),
     radial-gradient(800px 400px at -10% 10%, rgba(79, 70, 229, 0.10), transparent 55%),
     linear-gradient(180deg, var(--bg-grad-a), var(--bg-grad-b));
   min-height: 100vh;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .topbar {
@@ -115,7 +116,7 @@ body {
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem 1.5rem 3rem;
+  padding: 2.25rem 1.5rem 3rem;
 }
 
 .hero {
@@ -125,43 +126,47 @@ body {
   align-items: center;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   border-radius: 24px;
-  padding: 3rem 3rem 3rem 3.2rem;
+  padding: 3.25rem 3.25rem 3.25rem 3.4rem;
   color: #fff;
   box-shadow: var(--shadow-lg);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.75rem;
 }
 
 .hero-text h1 {
-  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  font-size: clamp(1.7rem, 3.6vw, 2.5rem);
   line-height: 1.2;
-  margin: 0 0 0.8rem;
+  margin: 0 0 0.7rem;
 }
 
 .hero-text p {
-  margin: 0 0 1.4rem;
+  margin: 0 0 1.5rem;
   color: rgba(255, 255, 255, 0.85);
-  font-size: 1.02rem;
+  font-size: 1.04rem;
+}
+
+.hero-text .btn.light {
+  margin-top: 0.5rem;
 }
 
 .form-card {
   background: var(--card);
   color: var(--ink);
   border-radius: var(--radius);
-  padding: 1.6rem;
+  padding: 1.75rem;
   box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
 }
 
 .form-card h2 {
-  margin: 0 0 1.2rem;
-  font-size: 1.25rem;
+  margin: 0 0 1.4rem;
+  font-size: 1.3rem;
 }
 
-.form { display: flex; flex-direction: column; gap: 1rem; }
+.form { display: flex; flex-direction: column; gap: 1.1rem; }
 
-.field { display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
+.field { display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
 
 .field label {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--ink-soft);
   text-transform: uppercase;
@@ -171,11 +176,12 @@ body {
 .field input,
 .field select {
   font: inherit;
+  font-size: 0.95rem;
   color: var(--ink);
   background: #f8fafc;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 0.65rem 0.8rem;
+  padding: 0.7rem 0.85rem;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
   width: 100%;
 }
@@ -188,7 +194,7 @@ body {
   background: #fff;
 }
 
-.field-row { display: flex; gap: 1rem; }
+.field-row { display: flex; gap: 1.1rem; }
 
 .field-error {
   margin: 0;
@@ -197,7 +203,7 @@ body {
   background: var(--bad-soft);
   border: 1px solid #fecdd3;
   border-radius: var(--radius-sm);
-  padding: 0.5rem 0.7rem;
+  padding: 0.55rem 0.7rem;
 }
 
 .chips {
@@ -241,19 +247,19 @@ body {
 .entre-checks {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 0.3rem;
+  gap: 0.65rem;
+  margin-top: 0.4rem;
 }
 
 .entre-check {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.4rem;
   background: #f8fafc;
   border: 1px solid var(--line);
   border-radius: 999px;
-  padding: 0.3rem 0.7rem;
-  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.88rem;
   cursor: pointer;
   user-select: none;
   transition: background 0.12s ease, border-color 0.12s ease;
@@ -261,8 +267,8 @@ body {
 
 .entre-check input {
   accent-color: var(--accent);
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
   margin: 0;
 }
@@ -276,16 +282,17 @@ body {
 .app-head {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
 }
 
-.app-head h2 { margin: 0; font-size: 1.5rem; }
+.app-head h2 { margin: 0; font-size: 1.6rem; }
 
 .app-head p { margin: 0.15rem 0 0; color: var(--ink-soft); font-size: 0.95rem; }
 
 .app-dot {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--ok);
   box-shadow: 0 0 0 4px var(--ok-soft);
@@ -296,17 +303,18 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
+  margin-bottom: 1.75rem;
 }
 
 .stat {
   background: var(--card);
   border-radius: var(--radius);
-  padding: 1.1rem 1.25rem;
+  padding: 1.3rem 1.4rem;
   box-shadow: var(--shadow);
 }
 
 .stat .stat-value {
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--ink);
 }
@@ -317,43 +325,45 @@ body {
   color: var(--ink-faint);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-top: 0.2rem;
+  margin-top: 0.25rem;
 }
 
 .card {
   background: var(--card);
   border-radius: var(--radius);
-  padding: 1.4rem;
+  padding: 1.6rem;
   box-shadow: var(--shadow);
 }
 
 .card-title {
-  margin: 0 0 1rem;
-  font-size: 1.02rem;
+  margin: 0 0 1.2rem;
+  font-size: 1.05rem;
 }
 
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.75rem; }
 
-.lista-gastos { display: grid; gap: 0.55rem; }
+#panel-app { display: grid; gap: 1.75rem; }
+
+.lista-gastos { display: grid; gap: 0.7rem; }
 
 .gasto-item {
   display: grid;
-  grid-template-columns: 2.1rem 1fr auto;
+  grid-template-columns: 2.2rem 1fr auto auto;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.9rem;
   background: #f8fafc;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 0.6rem 0.85rem;
+  padding: 0.7rem 0.9rem;
 }
 
 .gasto-id {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.1rem;
-  height: 2.1rem;
+  width: 2.2rem;
+  height: 2.2rem;
   border-radius: 8px;
   background: var(--accent-soft);
   color: var(--accent);
@@ -362,25 +372,46 @@ body {
 }
 
 .gasto-info .gasto-concepto { font-weight: 600; font-size: 0.95rem; }
-.gasto-info .gasto-quien { font-size: 0.8rem; color: var(--ink-faint); }
+.gasto-info .gasto-quien { font-size: 0.8rem; color: var(--ink-faint); margin-top: 0.1rem; }
 .gasto-info .gasto-entre { font-size: 0.75rem; color: var(--accent); margin-top: 0.15rem; }
 
 .gasto-importe { font-weight: 700; color: var(--ok); }
 
-.rows { display: grid; gap: 0.6rem; }
+.gasto-borrar {
+  border: 0;
+  background: transparent;
+  color: var(--ink-faint);
+  font-size: 1.3rem;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.12s ease;
+  flex: none;
+}
+
+.gasto-borrar:hover {
+  color: var(--bad);
+  background: var(--bad-soft);
+  border-color: #fecdd3;
+}
+
+.rows { display: grid; gap: 0.75rem; }
 
 .row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.8rem;
+  gap: 1rem;
   background: #f8fafc;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 0.55rem 0.85rem;
+  padding: 0.7rem 1rem;
 }
 
-.row .row-name { font-weight: 600; font-size: 0.92rem; }
+.row .row-name { font-weight: 600; font-size: 0.94rem; }
 
 .row .row-value { font-weight: 700; font-variant-numeric: tabular-nums; }
 
@@ -389,11 +420,11 @@ body {
 .row .zero { color: var(--ink-faint); }
 
 .barra {
-  height: 6px;
+  height: 7px;
   border-radius: 999px;
   background: var(--line);
   overflow: hidden;
-  margin-top: 0.3rem;
+  margin-top: 0.35rem;
 }
 
 .barra span {
@@ -408,14 +439,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.8rem;
+  gap: 1rem;
   background: var(--card);
   border: 1px solid #c7d2fe;
   border-radius: var(--radius-sm);
-  padding: 0.6rem 0.85rem;
+  padding: 0.75rem 1rem;
 }
 
-.transferencia .quien { display: flex; align-items: center; gap: 0.45rem; font-weight: 600; font-size: 0.9rem; }
+.transferencia .quien { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 0.92rem; }
 
 .transferencia .flecha { color: var(--accent); font-weight: 800; }
 
@@ -438,13 +469,16 @@ body {
 }
 
 @media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; padding: 2rem; }
+  .hero { grid-template-columns: 1fr; padding: 2.5rem; }
+  .hero-text .btn.light { margin-top: 1rem; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
+  .hero { padding: 2rem; }
   .grid-2 { grid-template-columns: 1fr; }
   .field-row { flex-direction: column; }
-  .container { padding: 1.25rem 1rem 2rem; }
+  .gasto-item { grid-template-columns: 2.2rem 1fr auto; }
+  .container { padding: 1.5rem 1rem 2.25rem; }
 }

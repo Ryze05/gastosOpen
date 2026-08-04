@@ -96,6 +96,18 @@
     return grupo;
   }
 
+  function eliminarGasto(grupo, id) {
+    const indice = grupo.gastos.findIndex(function (g) {
+      return g.id === id;
+    });
+    if (indice === -1) return grupo;
+    grupo.gastos.splice(indice, 1);
+    for (let i = 0; i < grupo.gastos.length; i++) {
+      grupo.gastos[i].id = i + 1;
+    }
+    return grupo;
+  }
+
   function totalPorPersona(grupo) {
     const totales = {};
     for (const p of grupo.participantes) {
@@ -367,9 +379,24 @@
       importe.className = "gasto-importe";
       importe.textContent = money(g.importe);
 
+      const btnEliminar = document.createElement("button");
+      btnEliminar.type = "button";
+      btnEliminar.className = "gasto-borrar";
+      btnEliminar.setAttribute("aria-label", "Borrar gasto " + g.id);
+      btnEliminar.innerHTML = "×";
+      btnEliminar.title = "Borrar gasto";
+      btnEliminar.addEventListener("click", function () {
+        if (confirm("¿Estás seguro de que quieres borrar el gasto \"" + g.concepto + "\" (" + money(g.importe) + ")?")) {
+          eliminarGasto(grupo, g.id);
+          guardar();
+          render();
+        }
+      });
+
       item.appendChild(id);
       item.appendChild(info);
       item.appendChild(importe);
+      item.appendChild(btnEliminar);
       cont.appendChild(item);
     }
   }

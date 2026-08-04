@@ -96,7 +96,22 @@ Añade un gasto al registro del grupo de forma atómica.
 
 ---
 
-### 4.3. `totalPorPersona(grupo)`
+### 4.3. `eliminarGasto(grupo, id)`
+
+Elimina un gasto registrado del grupo por su `id`.
+
+- **Parámetros:**
+  - `grupo` (`Object`): Instancia válida de un objeto `Grupo`.
+  - `id` (`number`): Identificador del gasto a eliminar.
+- **Comportamiento:**
+  - Busca el gasto con el `id` indicado en `grupo.gastos`.
+  - Si existe, lo elimina y **reasigna los `id` correlativos** a partir de 1 para mantener la secuencia.
+  - Si no existe, no modifica el grupo.
+- **Devuelve:** El objeto `grupo` actualizado.
+
+---
+
+### 4.4. `totalPorPersona(grupo)`
 
 Calcula el total absoluto que ha pagado cada integrante del grupo.
 
@@ -108,7 +123,7 @@ Calcula el total absoluto que ha pagado cada integrante del grupo.
 
 ---
 
-### 4.4. `balances(grupo)`
+### 4.5. `balances(grupo)`
 
 Calcula el saldo individual neto de cada participante.
 
@@ -126,7 +141,7 @@ Calcula el saldo individual neto de cada participante.
 
 ---
 
-### 4.5. `liquidacion(grupo)`
+### 4.6. `liquidacion(grupo)`
 
 Calcula el conjunto óptimo (mínimo número) de transferencias necesarias para liquidar todas las deudas.
 
@@ -146,7 +161,7 @@ Calcula el conjunto óptimo (mínimo número) de transferencias necesarias para 
 
 ---
 
-### 4.6. `resumen(grupo)`
+### 4.7. `resumen(grupo)`
 
 Genera un informe financiero sintético del grupo.
 

@@ -108,6 +108,27 @@
     return grupo;
   }
 
+  function modificarGasto(grupo, id, gasto) {
+    const indice = grupo.gastos.findIndex(function (g) {
+      return g.id === id;
+    });
+    if (indice === -1) return grupo;
+    const idOriginal = grupo.gastos[indice].id;
+    const gastoGuardado = {
+      id: idOriginal,
+      concepto: gasto.concepto,
+      importe: gasto.importe,
+      pagadoPor: gasto.pagadoPor
+    };
+    if (gasto.entre !== undefined && gasto.entre !== null) {
+      gastoGuardado.entre = [...gasto.entre];
+    } else {
+      delete gastoGuardado.entre;
+    }
+    grupo.gastos[indice] = gastoGuardado;
+    return grupo;
+  }
+
   function totalPorPersona(grupo) {
     const totales = {};
     for (const p of grupo.participantes) {
@@ -247,6 +268,7 @@
 
   let grupo = null;
   let participantesPendientes = [];
+  let gastoEditandoId = null;
 
   function guardar() {
     if (grupo) {
@@ -342,6 +364,67 @@
     return seleccionados;
   }
 
+  function cargarGastoParaEditar(g) {
+    gastoEditandoId = g.id;
+    $("#gasto-concepto").value = g.concepto || "";
+    $("#gasto-importe").value = g.importe != null ? String(g.importe) : "";
+    $("#gasto-pagado").value = g.pagadoPor || "";
+    actualizarEntreChecks(g.entre || null);
+    $("#err-gasto").hidden = true;
+    $("#err-entre").hidden = true;
+    renderBotonCancelar();
+  }
+
+  function limpiarFormularioGasto() {
+    gastoEditandoId = null;
+    $("#gasto-concepto").value = "";
+    $("#gasto-importe").value = "";
+    $("#gasto-pagado").value = "";
+    renderEntreChecks();
+    $("#err-gasto").hidden = true;
+    $("#err-entre").hidden = true;
+    quitarbotonCancelar();
+  }
+
+  function actualizarEntreChecks(entre) {
+    const checks = $("#entre-checks").querySelectorAll("input[type=checkbox]");
+    checks.forEach(function (cb) {
+      if (!entre) {
+        cb.checked = true;
+      } else {
+        cb.checked = entre.includes(cb.value);
+      }
+      const label = cb.closest(".entre-check");
+      if (label) {
+        label.classList.toggle("checked", cb.checked);
+      }
+    });
+  }
+
+  function renderBotonCancelar() {
+    if (!$("#gasto-cancelar")) {
+      const cont = document.createElement("div");
+      cont.className = "gasto-cancelar-cont";
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.id = "gasto-cancelar";
+      btn.className = "btn ghost";
+      btn.textContent = "Cancelar edición";
+      btn.addEventListener("click", function () {
+        limpiarFormularioGasto();
+      });
+      cont.appendChild(btn);
+      $("#form-gasto").appendChild(cont);
+    }
+  }
+
+  function quitarbotonCancelar() {
+    const cont = $("#gasto-cancelar-cont");
+    if (cont) {
+      cont.remove();
+    }
+  }
+
   function renderGastos() {
     const cont = $("#lista-gastos");
     cont.innerHTML = "";
@@ -393,10 +476,21 @@
         }
       });
 
+      const btnEditar = document.createElement("button");
+      btnEditar.type = "button";
+      btnEditar.className = "gasto-editar";
+      btnEditar.setAttribute("aria-label", "Editar gasto " + g.id);
+      btnEditar.innerHTML = "✎";
+      btnEditar.title = "Editar gasto";
+      btnEditar.addEventListener("click", function () {
+        cargarGastoParaEditar(g);
+      });
+
       item.appendChild(id);
       item.appendChild(info);
       item.appendChild(importe);
       item.appendChild(btnEliminar);
+      item.appendChild(btnEditar);
       cont.appendChild(item);
     }
   }
@@ -582,15 +676,18 @@
     const entre = getEntreSeleccionados();
 
     try {
-      agregarGasto(grupo, { concepto: concepto, importe: importe, pagadoPor: pagadoPor, entre: entre });
+      if (gastoEditandoId !== null) {
+        modificarGasto(grupo, gastoEditandoId, { concepto: concepto, importe: importe, pagadoPor: pagadoPor, entre: entre });
+      } else {
+        agregarGasto(grupo, { concepto: concepto, importe: importe, pagadoPor: pagadoPor, entre: entre });
+      }
     } catch (err) {
       mostrarError($("#err-gasto"), err.message);
       return;
     }
     ocultarError($("#err-gasto"));
     ocultarError($("#err-entre"));
-    $("#gasto-concepto").value = "";
-    $("#gasto-importe").value = "";
+    limpiarFormularioGasto();
     guardar();
     render();
   });

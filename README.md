@@ -17,6 +17,7 @@ Módulo en Node.js (CommonJS) para gestionar y distribuir de forma equitativa lo
 | `crearGrupo(nombre, participantes)` | Crea un grupo con al menos 2 participantes. |
 | `agregarGasto(grupo, gasto)` | Añade un gasto al grupo de forma atómica. El gasto puede incluir `entre` para repartir entre un subconjunto de participantes. |
 | `eliminarGasto(grupo, id)` | Elimina un gasto por su `id` y reasigna los ids correlativos. |
+| `modificarGasto(grupo, id, gasto)` | Modifica un gasto existente por su `id`; lanza Error si no existe. |
 | `totalPorPersona(grupo)` | Total pagado por cada participante. |
 | `balances(grupo)` | Saldo neto (pagado − cuota) por participante. |
 | `liquidacion(grupo)` | Transferencias mínimas para liquidar deudas. |

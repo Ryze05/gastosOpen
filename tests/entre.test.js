@@ -1,7 +1,7 @@
 "use strict";
 
 const assert = require("assert");
-const { crearGrupo, agregarGasto, eliminarGasto, balances, liquidacion, totalPorPersona, resumen } = require("../lib/gastos.js");
+const { crearGrupo, agregarGasto, eliminarGasto, modificarGasto, balances, liquidacion, totalPorPersona, resumen } = require("../lib/gastos.js");
 
 // --- eliminarGasto ---
 function testEliminarGastoReasignaIds() {
@@ -117,6 +117,49 @@ function testEntreCombinado() {
   assert.deepStrictEqual(liquidacion(grupo), [{ de: "Luis", a: "Marta", importe: 20 }]);
 }
 
+// --- modificarGasto ---
+function testModificarGastoActualizaCampos() {
+  const grupo = crearGrupo("Test", ["Ana", "Luis", "Marta"]);
+  agregarGasto(grupo, { concepto: "Taxi", importe: 20, pagadoPor: "Ana", entre: ["Ana", "Luis"] });
+
+  modificarGasto(grupo, 1, { concepto: "Taxi Airport", importe: 25, pagadoPor: "Ana", entre: ["Ana", "Luis", "Marta"] });
+
+  assert.strictEqual(grupo.gastos[0].id, 1);
+  assert.strictEqual(grupo.gastos[0].concepto, "Taxi Airport");
+  assert.strictEqual(grupo.gastos[0].importe, 25);
+  assert.deepStrictEqual(grupo.gastos[0].entre, ["Ana", "Luis", "Marta"]);
+}
+
+function testModificarGastoInexistenteLanzaError() {
+  const grupo = crearGrupo("Test", ["Ana", "Luis"]);
+  agregarGasto(grupo, { concepto: "A", importe: 10, pagadoPor: "Ana" });
+  assert.throws(function () {
+    modificarGasto(grupo, 999, { concepto: "X", importe: 10, pagadoPor: "Ana" });
+  }, /id 999/);
+}
+
+function testModificarGastoMantieneId() {
+  const grupo = crearGrupo("Test", ["Ana", "Luis"]);
+  agregarGasto(grupo, { concepto: "A", importe: 10, pagadoPor: "Ana" });
+  agregarGasto(grupo, { concepto: "B", importe: 20, pagadoPor: "Luis" });
+
+  modificarGasto(grupo, 1, { concepto: "A-mod", importe: 15, pagadoPor: "Ana" });
+  assert.strictEqual(grupo.gastos[0].id, 1);
+  assert.strictEqual(grupo.gastos[1].id, 2);
+  assert.strictEqual(grupo.gastos[0].concepto, "A-mod");
+  assert.strictEqual(grupo.gastos[0].importe, 15);
+}
+
+function testModificarGastoRecalculaBalances() {
+  const grupo = crearGrupo("Test", ["Ana", "Luis"]);
+  agregarGasto(grupo, { concepto: "A", importe: 30, pagadoPor: "Ana" });
+
+  assert.deepStrictEqual(balances(grupo), { Ana: 15, Luis: -15 });
+
+  modificarGasto(grupo, 1, { concepto: "A", importe: 40, pagadoPor: "Ana" });
+  assert.deepStrictEqual(balances(grupo), { Ana: 20, Luis: -20 });
+}
+
 // --- Runner ---
 function main() {
   const tests = [
@@ -132,7 +175,11 @@ function main() {
     testEntreNoArray,
     testEntreSeGuarda,
     testSinEntreComportamientoIgual,
-    testEntreCombinado
+    testEntreCombinado,
+    testModificarGastoActualizaCampos,
+    testModificarGastoInexistenteLanzaError,
+    testModificarGastoMantieneId,
+    testModificarGastoRecalculaBalances
   ];
 
   let passed = 0;

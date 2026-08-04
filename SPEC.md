@@ -111,7 +111,24 @@ Elimina un gasto registrado del grupo por su `id`.
 
 ---
 
-### 4.4. `totalPorPersona(grupo)`
+### 4.4. `modificarGasto(grupo, id, gasto)`
+
+Modifica un gasto existente del grupo, identificado por su `id`.
+
+- **Parámetros:**
+  - `grupo` (`Object`): Instancia válida de un objeto `Grupo`.
+  - `id` (`number`): Identificador del gasto a modificar.
+  - `gasto` (`Object`): Objeto con las mismas validaciones que `agregarGasto` (`{ concepto, importe, pagadoPor, entre }`).
+- **Comportamiento:**
+  - Aplica las mismas validaciones que `agregarGasto`.
+  - Busca el gasto con el `id` indicado en `grupo.gastos`.
+  - Si existe, reemplaza los campos `concepto`, `importe`, `pagadoPor` y `entre` manteniendo el `id` original.
+  - **Si no existe, lanza `Error`.**
+- **Devuelve:** El objeto `grupo` actualizado.
+
+---
+
+### 4.5. `totalPorPersona(grupo)`
 
 Calcula el total absoluto que ha pagado cada integrante del grupo.
 
@@ -123,7 +140,7 @@ Calcula el total absoluto que ha pagado cada integrante del grupo.
 
 ---
 
-### 4.5. `balances(grupo)`
+### 4.6. `balances(grupo)`
 
 Calcula el saldo individual neto de cada participante.
 
@@ -141,7 +158,7 @@ Calcula el saldo individual neto de cada participante.
 
 ---
 
-### 4.6. `liquidacion(grupo)`
+### 4.7. `liquidacion(grupo)`
 
 Calcula el conjunto óptimo (mínimo número) de transferencias necesarias para liquidar todas las deudas.
 
@@ -161,7 +178,7 @@ Calcula el conjunto óptimo (mínimo número) de transferencias necesarias para 
 
 ---
 
-### 4.7. `resumen(grupo)`
+### 4.8. `resumen(grupo)`
 
 Genera un informe financiero sintético del grupo.
 

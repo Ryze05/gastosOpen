@@ -83,6 +83,12 @@ body {
   justify-content: space-between;
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .brand {
   display: flex;
   align-items: center;

@@ -270,6 +270,42 @@
   let participantesPendientes = [];
   let gastoEditandoId = null;
 
+  const THEME_KEY = "gastos-ui-tema";
+
+  function aplicarTema(tema) {
+    document.documentElement.setAttribute("data-theme", tema);
+    const icono = $("#theme-icon");
+    if (icono) {
+      icono.textContent = tema === "dark" ? "☀️" : "🌙";
+    }
+  }
+
+  function alternarTema() {
+    const temaActual = document.documentElement.getAttribute("data-theme") || "light";
+    const nuevoTema = temaActual === "dark" ? "light" : "dark";
+    aplicarTema(nuevoTema);
+    try {
+      localStorage.setItem(THEME_KEY, nuevoTema);
+    } catch (e) {
+    }
+  }
+
+  function iniciarTema() {
+    let tema = "light";
+    try {
+      const guardado = localStorage.getItem(THEME_KEY);
+      if (guardado === "light" || guardado === "dark") {
+        tema = guardado;
+      } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        tema = "dark";
+      }
+    } catch (e) {
+    }
+    aplicarTema(tema);
+  }
+
+  $("#theme-toggle").addEventListener("click", alternarTema);
+
   function guardar() {
     if (grupo) {
       try {
@@ -696,6 +732,7 @@
 
   restaurar();
   renderChips();
+  iniciarTema();
   if (grupo) {
     activarApp();
   }
